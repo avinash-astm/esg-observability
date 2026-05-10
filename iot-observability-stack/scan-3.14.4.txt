@@ -1,0 +1,11 @@
+
+ Target             │  python:3.14.4-slim  │    0C     1H     3M    22L  
+   digest           │  c11aee3b3cae        │                             
+ Base image         │  debian:13-slim      │    0C     1H     2M    22L  
+ Updated base image │  debian:13           │    0C     1H     2M    22L  
+                    │                      │                             
+
+What's next:
+    View vulnerabilities → docker scout cves python:3.14.4-slim
+    View base image update recommendations → docker scout recommendations python:3.14.4-slim
+    Include policy results in your quickview by supplying an organization → docker scout quickview python:3.14.4-slim --org <organization>

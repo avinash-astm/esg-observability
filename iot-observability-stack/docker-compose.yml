@@ -1,0 +1,40 @@
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    volumes:
+      - ./configs/otel-collector-config.yaml:/otel-collector-config.yaml
+    command: ["--config", "/otel-collector-config.yaml"]
+    ports:
+      - "4317:4317"  # gRPC
+      - "55681:55681"  # HTTP
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  iot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./configs/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./configs/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard_providers.yaml
+      - ./dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Default admin password
+    depends_on:
+      - prometheus
+
+networks:
+  default:
+    driver: bridge

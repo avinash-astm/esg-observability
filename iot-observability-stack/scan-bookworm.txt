@@ -1,0 +1,8 @@
+
+ Target     │  python:3.14-bookworm     │    0C    15H    22M   205L    14?  
+   digest   │  7e4daf6d16a6             │                                    
+ Base image │  buildpack-deps:bookworm  │    0C    15H    21M   194L    14?  
+
+What's next:
+    View vulnerabilities → docker scout cves python:3.14-bookworm
+    Include policy results in your quickview by supplying an organization → docker scout quickview python:3.14-bookworm --org <organization>

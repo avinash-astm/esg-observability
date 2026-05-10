@@ -1,0 +1,47 @@
+{
+  "annotations": [],
+  "panels": [
+    {
+      "datasource": "IoT Metrics",
+      "id": 1,
+      "targets": [
+        {
+          "expr": "temperature",
+          "legendFormat": "Temperature",
+          "refId": "A"
+        }
+      ],
+      "title": "Current Temperature",
+      "type": "graph"
+    },
+    {
+      "datasource": "IoT Metrics",
+      "id": 2,
+      "targets": [
+        {
+          "expr": "humidity",
+          "legendFormat": "Humidity",
+          "refId": "A"
+        }
+      ],
+      "title": "Current Humidity",
+      "type": "graph"
+    },
+    {
+      "datasource": "IoT Metrics",
+      "id": 3,
+      "targets": [
+        {
+          "expr": "pressure",
+          "legendFormat": "Pressure",
+          "refId": "A"
+        }
+      ],
+      "title": "Current Pressure",
+      "type": "graph"
+    }
+  ],
+  "schemaVersion": 26,
+  "title": "IoT Metrics Dashboard",
+  "version": 1
+}

@@ -1,0 +1,11 @@
+
+ Target             │  python:3.14-slim-bookworm  │    0C     2H     5M    32L    10?  
+   digest           │  2e256d038137               │                                    
+ Base image         │  debian:12-slim             │    0C     2H     4M    26L    10?  
+ Updated base image │  debian:13-slim             │    0C     1H     2M    22L         
+                    │                             │           -1     -2     -4    -10  
+
+What's next:
+    View vulnerabilities → docker scout cves python:3.14-slim-bookworm
+    View base image update recommendations → docker scout recommendations python:3.14-slim-bookworm
+    Include policy results in your quickview by supplying an organization → docker scout quickview python:3.14-slim-bookworm --org <organization>

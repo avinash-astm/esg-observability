@@ -1,0 +1,1 @@
+# This file initializes the collector module, allowing for the import of its components.
