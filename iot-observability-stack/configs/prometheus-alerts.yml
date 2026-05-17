@@ -1,0 +1,47 @@
+groups:
+  - name: water_slo_alerts
+    interval: 30s
+    rules:
+      - alert: WaterSLOBreachAlert
+        expr: wue > 3.0
+        for: 2m
+        labels:
+          severity: warning
+          component: water_stewardship
+        annotations:
+          summary: "Water SLO Breach Alert"
+          description: "Water Usage Effectiveness (WUE) has exceeded the SLO threshold of 3.0. Current WUE: {{ $value }}"
+          dashboard: "Water Metrics"
+          runbook: "https://wiki.example.com/runbooks/water-slo-breach"
+
+      - alert: WaterCriticalSLOBreach
+        expr: wue > 4.0
+        for: 1m
+        labels:
+          severity: critical
+          component: water_stewardship
+        annotations:
+          summary: "Critical Water SLO Breach Alert"
+          description: "Water Usage Effectiveness (WUE) has critically exceeded the SLO threshold of 4.0. Current WUE: {{ $value }}"
+          dashboard: "Water Metrics"
+          runbook: "https://wiki.example.com/runbooks/critical-water-slo-breach"
+
+      - alert: TankerDependencyHigh
+        expr: tanker_dependency_ratio > 0.3
+        for: 5m
+        labels:
+          severity: warning
+          component: water_stewardship
+        annotations:
+          summary: "High Tanker Dependency Detected"
+          description: "Tanker dependency ratio is above 30%. Current ratio: {{ $value }}"
+
+      - alert: RainwaterHarvestingLow
+        expr: rainwater_harvested_liters < 1000
+        for: 10m
+        labels:
+          severity: info
+          component: water_stewardship
+        annotations:
+          summary: "Rainwater Harvesting Below Target"
+          description: "Rainwater harvested is below target of 1000 liters. Current: {{ $value }} liters"

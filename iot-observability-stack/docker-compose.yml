@@ -6,14 +6,30 @@ services:
     command: ["--config", "/otel-collector-config.yaml"]
     ports:
       - "4317:4317"  # gRPC
-      - "55681:55681"  # HTTP
+      - "8888:55681"  # HTTP
 
   prometheus:
     image: prom/prometheus:latest
     volumes:
       - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./configs/prometheus-alerts.yml:/etc/prometheus/rules/prometheus-alerts.yml
     ports:
       - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    depends_on:
+      - alertmanager
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ./configs/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
 
   iot-app:
     build:
@@ -27,11 +43,13 @@ services:
     volumes:
       - ./configs/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
       - ./configs/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard_providers.yaml
+      - ./configs/grafana-notifier.yaml:/etc/grafana/provisioning/notifiers/notifier.yaml
       - ./dashboards:/var/lib/grafana/dashboards
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Default admin password
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_ALERTING_ENABLED=true
     depends_on:
       - prometheus
 
